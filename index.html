@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>DV2 Dashboard – Geelong & Casey Pets</title>
+
+    <!-- Vega & Vega-Lite -->
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-wordcloud@4"></script>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- TITLE -->
+    <h1>Understanding Pet Ownership in Geelong & Casey: </h1>
+    <h1>Geography, Breeds, Ages & Names</h1>
+
+    <p class="subtitle">
+        <br>
+        A visual exploration of pet populations and behavioural trends across Geelong and Casey.
+    </p>
+
+    <!-- ===================================================== -->
+    <!-- MAIN PETS / POPULATION MAP (BIG MAP WITH BORDER CARD) -->
+    <!-- ===================================================== -->
+    <section class="map-section">
+        <p class="section-text">
+            This dashboard uses publicly available pet registration data to examine how pet ownership 
+            varies across the cities of Geelong and Casey. It highlights where pets are most concentrated, 
+            how dog–cat ratios differ by suburb, and how these patterns relate to age, breed and naming 
+            trends. Together, the visualisations offer a clear picture of the cultural and behavioural 
+            characteristics shaping pet ownership across both regions.
+          </p>
+          <p class="section-text">
+            The dashboard begins by examining the geographic distribution of pet ownership across Geelong and Casey. 
+            Mapping pets per 1,000 residents highlights where pets form a larger part of household life 
+            and reveals how pet-keeping culture varies from suburb to suburb. The map below provides an 
+            overview of these spatial patterns before we explore age, breed and naming trends in later 
+            sections.
+          </p>
+          
+          
+          
+
+        <!-- Two-column explanation text -->
+        <div class="map-text-row">
+
+            <div class="map-description-left">
+                <h2>What This Map Shows</h2>
+                <p class="section-text">
+                    The choropleth map compares how common pet ownership is across Geelong and Casey by measuring
+                    registered pets per 1,000 residents.
+                    This standardised rate reveals genuine differences in pet-keeping culture rather than simply
+                    reflecting population size.
+                    Darker shading highlights suburbs where pets form a noticeably larger part of household life.
+                </p>
+            </div>
+
+            <div class="map-description-right">
+                <h2>How To Read The Map</h2>
+                <p class="section-text">
+                    Hover over any suburb to view cat and dog registration counts as well as the estimated
+                    population. Comparing Geelong and Casey side-by-side reveals different spatial distributions:
+                    Casey suburbs tend to show stronger contrasts between high and low ownership regions, while
+                    Geelong displays a more gradual spatial gradient.
+                </p>
+            </div>
+
+        </div>
+
+        <!-- Bordered map card -->
+        <div class="map-card">
+            <div id="map-victoria" class="chart"></div>
+        </div>
+
+    </section>
+    <section class="section-bridge">
+        <p class="section-text">
+            The first map shows where pet ownership is concentrated, but it treats all pets as equal.
+            In reality, some suburbs are far more dog-dominated, while others lean strongly toward cats.
+            This difference tells us about the kinds of households living in each area from
+            family-oriented, dog-heavy suburbs to apartment-dense neighbourhoods with more cats.
+            <br><br>
+            The following diverging map visualises this balance directly, showing whether dogs or cats
+            are more common in each suburb, and by how much.
+        </p>
+    </section>
+
+    <!-- ========================================= -->
+    <!--  SMALL DOG/CAT RATIO MAP WITH EXPLANATION -->
+    <!-- ========================================= -->
+    <section class="ratio-section">
+
+        <div class="ratio-layout">
+
+            <!-- LEFT COLUMN: Ratio Map -->
+            <div class="ratio-col-left">
+                <div id="ratio-wrapper" class="ratio-wrapper">
+                    <div id="map-ratio" class="ratio-map"></div>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN: Explanatory text -->
+            <div class="ratio-text">
+                <h2>Dog vs Cat Dominance by Suburb</h2>
+                <p>
+                    This smaller map focuses on the balance between dogs and cats in each suburb.
+                    The diverging colour scale shows the log₁₀ ratio of registered dogs to registered cats:
+                </p>
+                <ul>
+                    <li><strong>Blue</strong> suburbs have relatively more cats than dogs.</li>
+                    <li><strong>Red</strong> suburbs have relatively more dogs than cats.</li>
+                    <li><strong>White / pale shades</strong> indicate a more balanced mix.</li>
+                    <li><strong>The more intense the shade is, the higher the ratio is respectively.</strong></li>
+                </ul>
+                <p>
+                    Because the ratio is shown on a log scale, extreme dog- or cat-dominated suburbs appear
+                    more intensely coloured, while balanced suburbs sit near the centre of the colour scale.
+                    This makes it easy to identify pockets of dog-leaning vs cat-leaning communities across both
+                    councils.
+                </p>
+            </div>
+        </div>
+        <div>
+            <p class="section-text">
+                <br>
+                <strong>Why no blue suburbs appear:</strong>
+                Blue indicates areas where cats outnumber dogs. Although the colour scale includes blue to
+                represent the full possible range, <strong>none of the suburbs in Geelong or Casey fall below zero on
+                    the log₁₀(dogs/cats) scale</strong>.
+                In other words, <strong>dogs outnumber cats in every suburb</strong>.
+                The inclusion of blue in the legend reflects the complete scale used for the ratio, while its absence on
+                the map highlights a genuine pattern in the data: across both regions, dog ownership is consistently
+                more prevalent than cat ownership.
+                <br><br>
+                This ratio map complements the preceding population maps by showing not just where pet
+                ownership is high, but which type of pet shapes each community. The following sections
+                explore how these species differences relate to age profiles, breed popularity, and naming
+                patterns.
+            </p>
+            <h2>Understanding Suburb-level Patterns in Context:</h2>
+            <p class="section-text">
+                While the ratio map highlights how dog- and cat-dominance varies across individual suburbs, it is also
+                important to interpret these patterns at a broader scale.
+                The following charts step back from suburb-level detail to compare overall pet ownership between
+                the two councils and to identify which suburbs have the highest concentration of pets per resident.
+                Together, these views help contextualise the earlier maps and offer clearer insight into how local
+                variations fit within the wider demographic landscape of Geelong and Casey.
+            </p>
+        </div>
+    </section>
+    <!-- CITY-LEVEL COMPARISON + TOP 10 (two-column layout) -->
+    <!-- <section class="section-bridge">
+        
+      </section> -->
+    <section class="city-compare-section">
+        <div class="city-compare-grid">
+
+            <!-- LEFT BLOCK: City-level comparison -->
+            <div class="info-card">
+                <h2 class="section-heading">City-level Dog vs Cat Ownership</h2>
+                <p class="section-text">
+                    This chart compares the total number of registered dogs and cats across the Cities
+                    of Geelong and Casey. It highlights the broader city-level differences in pet ownership
+                    and provides essential context for interpreting the suburb-level trends shown in earlier maps.
+                    Overall, both Geelong and Casey register substantially more dogs than cats, reinforcing the
+                    consistent
+                    dog-dominance seen across almost all suburbs in both councils.
+                </p>
+
+                <div class="chart-border">
+
+                    <div id="city-dog-cat-bar" class="chart"></div>
+                </div>
+            </div>
+
+            <!-- RIGHT BLOCK: Top 10 suburbs -->
+            <div class="info-card">
+                <h2 class="section-heading">Top 10 Suburbs</h2>
+                <p class="section-text">
+                    This chart identifies the suburbs with the highest number of registered pets per 1,000 residents
+                    across both councils. Standardising by population makes it possible to pinpoint areas where pet
+                    ownership is particularly concentrated, regardless of suburb size.A notable pattern emerges:<strong>
+                    8 out of the top 10 suburbs are located in Geelong</strong>, suggesting a higher density of pet-owning
+                    households
+                    compared to Casey and reflecting regional differences in lifestyle and housing patterns.
+                </p>
+                <div class="chart-border">
+
+                    <div id="top10-suburbs" class="chart"></div>
+                </div>
+            </div>
+
+        </div>
+        <p class="section-text">
+            <br>
+            Taken together, the suburb-level maps and city comparisons paint a clear picture of
+            pet ownership across Geelong and Casey: both councils show strong dog dominance, and
+            pet ownership is most concentrated in a small number of Geelong suburbs. These patterns
+            reflect broader differences in population density, housing types and lifestyle
+            preferences across the two regions. Having explored <strong>where</strong> pets are most
+            common and how dogs and cats differ geographically, the dashboard now shifts focus to
+            <strong>who</strong> these pets are: their ages, breeds and naming trends.
+        </p>
+
+        <!-- Intro text for this part -->
+        <section class="characteristics-section">
+            <h2>Pet Characteristics & Behavioural Patterns</h2>
+            <p class="section-text">
+                The earlier visualisations focus on <strong>where</strong> pet ownership is concentrated
+                across Geelong and Casey, and how the balance between dogs and cats varies by suburb.
+                This next section shifts attention from location to <strong>who</strong> these pets are,
+                exploring demographic and behavioural patterns such as age, breed popularity, and naming trends.
+            </p>
+            <p class="section-text">
+                Only the <strong>Geelong</strong> dataset contains detailed, pet-level records
+                (including age, breed, and name). For this reason, the following charts draw on
+                Geelong’s data to provide a closer look at the characteristics and preferences
+                of pet-owning households in that region.
+            </p>
+        </section>
+
+
+        <!-- Two-column layout, SAME wrapper as the city-level section -->
+        <section class="city-compare-section">
+            <div class="city-compare-grid">
+
+                <!-- LEFT: age histogram -->
+                <div class="info-card">
+                    <h2 class="section-heading">Age Profile of Registered Pets</h2>
+                    <p class="section-text">
+                        This chart shows how pet ages are distributed in Geelong. Use the dropdown to compare
+                        <strong>all pets</strong>, <strong>dogs only</strong> and <strong>cats only</strong>,
+                        revealing how longevity and registration behaviour differ between species.
+                    </p>
+                    <p class="section-text">
+                        Most pets are between <strong>4 and 10 years old</strong>, with dogs clustering around
+                        <strong>6–9 years</strong>. Cats have a slightly broader spread and appear more often
+                        in older age groups, while very old pets (15+ years) are rare for both species.
+                    </p>
+                    <div class="chart-border">
+                        <div id="age-histogram" class="chart"></div>
+                    </div>
+                </div>
+
+
+                <!-- RIGHT: top 10 breeds -->
+                <div class="info-card">
+                    <h2 class="section-heading">Top 10 Breeds by Species</h2>
+                    <p class="section-text">
+                        This chart highlights the <strong>ten most common breeds</strong> among registered pets
+                        in Geelong. Use the dropdown to switch between popular <strong>dog</strong> and
+                        <strong>cat</strong> breeds.
+                    </p>
+                    <p class="section-text">
+                        Dog ownership is dominated by <strong>Labradors</strong>, <strong>Jack Russells</strong>,
+                        <strong>Maltese/Shih Tzus</strong> and <strong>Border Collies</strong>. For cats, registrations
+                        are overwhelmingly <strong>Domestic Short-haired</strong>, <strong>Domestic</strong> and
+                        <strong>Domestic Long-haired</strong>, with pure-bred cats making up only a small share of
+                        total registrations.
+                    </p>
+                    <div class="chart-border">
+                        <div id="breed-lollipop" class="chart"></div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </section>
+
+    <!-- Popular breed age patterns (heatmap) -->
+    <section class="heatmap-section">
+        <p>
+            After examining overall age profiles and breed popularity, the next chart combines these perspectives by
+            showing how age varies within the ten most common breeds.
+        </p>
+
+        <!-- FULL-WIDTH INTRO TEXT -->
+        <div class="section-intro">
+            <h2>Age by Breed for Popular Dogs and Cats</h2>
+            <p class="section-text">
+                This heatmap shows how pet ages are distributed across the ten most common breeds in Geelong.
+                Darker cells indicate age groups with more registered pets. Use the dropdown below to switch
+                between <strong>dogs</strong> and <strong>cats</strong>.
+            </p>
+        </div>
+
+        <!-- 2/3 + 1/3 LAYOUT -->
+        <div class="two-col-visual-layout">
+
+            <!-- LEFT: Heatmap -->
+            <div class="visual-col">
+                <div class="chart-border">
+                    <div id="breed-age-heatmap" class="chart"></div>
+                </div>
+            </div>
+
+            <!-- RIGHT: Explanation -->
+            <div class="text-col">
+                <h2>What the Heatmap Reveals</h2>
+                <p class="section-text">
+                    For <strong>dogs</strong>, the darkest cells sit between roughly
+                    <strong>4 and 10 years</strong> across most popular breeds. Labradors,
+                    Jack Russells, Maltese/Shih Tzus and Border Collies all show a strong band
+                    in this middle-age range, with much lighter shading for very young (&lt; 2 years)
+                    and older (&gt; 12 years) pets.
+                </p>
+
+                <p class="section-text">
+                    For <strong>cats</strong>, Domestic Short Haired and Domestic cats dominate
+                    the grid, with their highest concentrations between about
+                    <strong>3 and 8 years</strong>. The pedigree breeds (such as Burmese, Ragdoll,
+                    Birman and Siamese) have smaller clusters that are also mostly concentrated
+                    in these younger–middle ages. Beyond around 10 years, cells become noticeably
+                    paler for almost all cat breeds.
+                </p>
+
+                <p class="section-text">
+                    Overall, both heatmaps show that the <strong>most common breeds are
+                        mainly middle-aged pets</strong>. Dogs have a slightly broader spread into the
+                    later single-digit and early teen years, while cats, especially the pedigree
+                    breeds, appear more heavily weighted toward the younger and mid-life ranges.
+                </p>
+            </div>
+        </div>
+        <p class="section-transition">
+            Beyond age and breed, naming patterns offer another window into how households relate to their pets. The
+            next visualisation highlights the most common names chosen by Geelong owners.
+        </p>
+
+    </section>
+
+    <!-- ========================================= -->
+    <!--  PET NAME WORD CLOUD (intro + 2/3–1/3)   -->
+    <!-- ========================================= -->
+    <section class="name-cloud-section">
+
+
+        <!-- Full-width heading + intro -->
+        <div class="section-intro">
+            <h2 class="section-heading">Most Common Pet Names in Geelong</h2>
+            <p class="section-text">
+                This word cloud highlights the most frequently used pet names in the Geelong dataset.
+                Larger names represent more registrations, revealing clear preferences for short, easily
+                spoken names and familiar, human-like naming styles. The prominence of repeated favourites
+                such as <strong>Bella</strong>, <strong>Charlie</strong> and <strong>Max</strong> also shows how
+                strongly certain classic pet names dominate across households. Beyond which names are most popular, 
+                understanding the structure of those names reveals deeper patterns.
+            </p>
+
+        </div>
+
+        <!-- 2/3 – 1/3 grid underneath -->
+        <div class="name-cloud-grid">
+
+            <!-- LEFT: Word cloud card -->
+            <div class="info-card">
+                <div class="chart-border">
+                    <div id="pet-name-cloud" class="chart"></div>
+                </div>
+            </div>
+
+            <!-- RIGHT: Explanatory text card -->
+            <div class="info-card">
+                <h2 class="text-col">What the Name Patterns Suggest</h2>
+                <p class="section-text">
+                    The word cloud shows that Geelong pet owners favour a small set of very popular, easy-to-say names.
+                    Names like <strong>Bella</strong>, <strong>Charlie</strong>, <strong>Max</strong> and
+                    <strong>Molly</strong> appear much larger than the rest, meaning they are registered far more often
+                    than other names.
+                </p>
+
+                <p class="section-text">
+                    A strong human-name influence is visible: many top names (e.g., <strong>Oscar</strong>,
+                    <strong>Archie</strong>, <strong>Ruby</strong>, <strong>Lily</strong>) are common baby names in
+                    Australia.
+                    This suggests that pets are often treated as family members and named much like children.
+                </p>
+
+                <p class="section-text">
+                    Another clear trend is simplicity: most names are short (typically 4–6 letters) and easy to call
+                    out.
+                    There is also a noticeable mix of affectionate nicknames (<strong>Buddy</strong>,
+                    <strong>Lulu</strong>, <strong>Bear</strong>) and classic pet names (<strong>Rex</strong>,
+                    <strong>Shadow</strong>, <strong>Pepper</strong>).
+                </p>
+            </div>
+
+        </div>
+        <p class="section-text">
+            <br>
+            Beyond which names are most popular, it is also useful to look at how those names are
+            structured. The next charts explore patterns in <strong>name length</strong> and
+            <strong>initial letters</strong> to show how owners tend to shape and choose their pets’
+            names.
+        </p>
+
+    </section>
+
+    <!-- ========================================= -->
+    <!--  NAME LENGTH SECTION (matches earlier layout) -->
+    <!-- ========================================= -->
+
+    <section class="characteristics-section">
+        <h2>How long are pet names?</h2>
+        <p>
+            While the word cloud highlights which individual names are most popular, the next two charts
+            look at how those names are formed, their <strong>length</strong> and the
+            <strong>initial letters</strong> owners tend to choose. This helps reveal broader naming
+            patterns across dogs and cats in Geelong.
+        </p>
+
+    </section>
+
+    <section class="city-compare-section">
+        <div class="city-compare-grid">
+
+            <!-- LEFT: histogram card -->
+            <div class="info-card">
+                <h2 class="section-heading">Name length distribution</h2>
+                <p class="section-text">
+                    The chart on the left compares how long pet names typically are for
+                    <strong>dogs</strong> and <strong>cats</strong>. Bars show how many registered pets have
+                    names of each length.
+                </p>
+                <p class="section-text">
+                    Most names fall between <strong>4 and 7 characters</strong>, reflecting a strong
+                    preference for short, easy-to-call names. Dogs generally have slightly longer names than
+                    cats, which more often have very short, nickname-style names.
+                </p>
+                <div class="chart-border">
+                    <div id="name-length-hist" class="chart"></div>
+                </div>
+            </div>
+
+            <!-- RIGHT: A–Z initial chart + explanation -->
+            <div class="info-card">
+                <h2 class="section-heading">Name length patterns</h2>
+
+                <!-- NEW: A–Z initial frequency chart -->
+                <p class="section-text">
+                    The chart on the right shows which <strong>initial letters</strong> are most common.
+                    Names beginning with <strong>B</strong>, <strong>C</strong> and <strong>M</strong> are
+                    especially popular, while unusual initials such as <strong>Q</strong>, <strong>X</strong>
+                    and <strong>Z</strong> appear far less often.
+                </p>
+                <p class="section-text">
+                    Together with the word cloud, this suggests that most pets are given simple,
+                    human-like names that fit everyday use.
+                </p>
+
+                <div class="chart-border chart-border-compact">
+                    <div id="name-initial-bar" class="chart"></div>
+                </div>
+            </div>
+        </div>
+        <p class="section-text">
+            <br>
+            Together, these charts show that most pets are given simple, 
+            familiar names: short (4–7 characters), easy to pronounce, and often starting with 
+            common initials like B, C and M. Dogs tend to have slightly longer names than cats, 
+            while unusual or very long names remain rare. Together, these patterns reflect a strong 
+            preference for human-like, everyday names that are quick to call and widely recognisable.
+        </p>
+        
+        <h2>Summary & Key Insights</h2>
+
+        <p class="section-text">
+            Overall, the data shows that Geelong and Casey share many similarities in pet ownership, yet differ 
+            in density, species balance and registration detail. Dogs dominate registrations across both cities, 
+            with middle-aged pets being the most common and popular breeds showing clear age clusters. Naming 
+            patterns further highlight a strong preference for short, human-like names that are easy to call. 
+            Taken together, these insights reveal how geography, demographics and cultural preferences shape the 
+            way households choose, identify and care for their pets.
+          </p>
+          
+    </section>
+
+    <script src="js/app.js"></script>
+</body>
+
+<div class="metadata-box">
+
+    <h2>Metadata</h2>
+    
+    <p><strong>Author:</strong><br>
+    Darren Hong Weng Chen (Student ID: 32680120)<br>
+    Monash University — FIT3179 Data Visualisation 2</p>
+    
+    <p><strong>Date of Creation:</strong> 2 December 2025</p>
+    
+    <p><strong>Data Sources:</strong></p>
+    
+    <p><em>City of Greater Geelong — Registered Pets Dataset</em><br>
+    <a href="https://data.gov.au/.../geelong-pets">data.gov.au/.../geelong-pets</a><br>
+    Contains detailed pet-level registration records (species, age, breed, names).</p>
+    
+    <p><em>City of Casey — Registered Pets by Suburb Dataset</em><br>
+    <a href="https://data.gov.au/.../casey-pets">data.gov.au/.../casey-pets</a><br>
+    Contains suburb-level counts of registered dogs and cats.</p>
+    
+    <p><em>ABS Estimated Resident Population</em><br>
+    <a href="https://www.abs.gov.au/statistics">abs.gov.au/statistics</a><br>
+    Used to standardise pet ownership per 1,000 residents.</p>
+    
+    </div>
+    
+  
+
+</html>

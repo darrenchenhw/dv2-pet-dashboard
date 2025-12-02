@@ -1,0 +1,330 @@
+/* =============== Global =============== */
+
+* {
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 24px 24px 48px;
+    background: #fafafa;
+    color: #222;
+  }
+  
+  /* =============== Heading & intro =============== */
+  
+  h1 {
+    text-align: center;
+    margin: 0 0 12px;
+    font-size: 2.2rem;
+  }
+  
+  .subtitle {
+    text-align: center;
+    font-size: 1.05rem;
+    line-height: 1.45;
+    color: #444;
+    max-width: 900px;
+    margin: 0 auto 32px;
+  }
+  
+  /* =============== Main map section =============== */
+  
+  .map-section {
+    max-width: 1280px;
+    margin: 0 auto 40px;
+  }
+  
+  /* text row above the main map */
+  .map-text-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    margin-bottom: 16px;
+  }
+  
+  .map-description-left,
+  .map-description-right {
+    flex: 1;
+    color: #333;
+    line-height: 1.5;
+  }
+  
+  .map-description-left h3,
+  .map-description-right h3 {
+    margin: 0 0 6px;
+    font-size: 1.1rem;
+    color: #111;
+  }
+  
+  /* card that wraps the big Victoria map */
+  .map-card {
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 8px;
+    background: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+  }
+  
+  /* where Vega-Embed writes the spec */
+  #map-victoria {
+    width: 100%;
+  }
+  
+ /* ---- Ratio map section ---- */
+
+/* ---- Ratio map section (3-column grid) ---- */
+
+.ratio-section {
+  max-width: 1280px;
+  margin: 40px auto 0 auto;          /* matches top section */
+}
+
+.ratio-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1.2fr 1fr;  /* 3 columns */
+  column-gap: 32px;
+  align-items: flex-start;
+}
+
+/* Map spans first two columns */
+.ratio-map {
+  grid-column: 1 / span 2;
+}
+
+/* Text sits in column 3 */
+.ratio-text {
+  grid-column: 3 / 4;
+  line-height: 1.5;
+  color: #333;
+}
+
+.ratio-text h3 {
+  margin-top: 0;
+  margin-bottom: 8px;
+  font-size: 1.15rem;
+  color: #222;
+}
+
+.ratio-text ul {
+  margin-top: 6px;
+  margin-bottom: 10px;
+  padding-left: 18px;
+}
+
+/* Stack on small screens */
+@media (max-width: 900px) {
+  .ratio-grid {
+    grid-template-columns: 1fr;
+    row-gap: 24px;
+  }
+
+  .ratio-map {
+    grid-column: 1 / 2;
+  }
+
+  .ratio-text {
+    grid-column: 1 / 2;
+  }
+}
+.ratio-layout {
+    display: flex;
+    align-items: flex-start;
+    gap: 32px;
+}
+
+.ratio-wrapper {
+    flex: 0 0 55%;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+
+  
+  
+  /* =============== Vega-Embed tweaks =============== */
+  
+  /* allow legends to overflow out of the card/container */
+  .vega-embed,
+  .vega-embed > div {
+    overflow: visible !important;
+  }
+  
+  /* optional: tidy the little actions menu (…) */
+  .vega-embed .vega-actions {
+    font-size: 0.8rem;
+  }
+  
+  /* =============== Responsive =============== */
+  
+  @media (max-width: 900px) {
+    body {
+      padding: 16px;
+    }
+  
+    .map-text-row {
+      flex-direction: column;
+      gap: 24px;
+    }
+  
+    .map-card {
+      padding: 16px;
+    }
+  
+  }
+
+  .ratio-note {
+    margin-top: 20px;
+    padding: 16px 20px;
+    background: #f5f7fa;
+    border: 1px solid #e1e4e8;
+    border-radius: 6px;
+    line-height: 1.55;
+    color: #333;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* -------- Two-column layout for comparison charts -------- */
+
+.city-compare-section {
+    max-width: 1280px;
+    margin: 40px auto 0 auto;
+  }
+  
+  /* Two equal-width columns */
+  .city-compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+  
+  /* Shared styling for both white blocks */
+  /* .city-left-block,
+  .city-right-block {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px 24px 24px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+  } */
+  
+  .section-heading {
+    margin: 0 0 8px;
+    font-size: 1.3rem;
+    color: #111;
+  }
+  
+  .section-text {
+    margin: 0 0 16px;
+    color: #444;
+    line-height: 1.5;
+    max-width: 95%;
+  }
+  
+  .city-compare-grid .chart {
+    width: 100%;
+    margin-top: 8px;
+  }
+  
+  /* Responsive stacking */
+  @media (max-width: 900px) {
+    .city-compare-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  .characteristics-section {
+    max-width: 1280px;
+    margin: 40px auto 0 auto;          /* matches top section */
+  }
+  
+  /* .characteristics-section h2 {
+    font-size: 2rem;
+    margin-bottom: 16px;
+    color: #111;
+  } */
+  /* NEW – border around the charts only for top 10 and city comparison*/
+.chart-border {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px 24px 24px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+    margin-top: 16px;
+  }/* ============================= */
+/*  Pet name word cloud section  */
+/* ============================= */
+
+.name-cloud-section {
+    max-width: 1280px;
+    margin: 40px auto 0 auto;
+  }
+  
+  /* 2/3 (plot) – 1/3 (text) layout */
+  .name-cloud-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;  /* left wider than right */
+    gap: 32px;
+    align-items: flex-start;
+  }
+  
+  /* The chart inside the left card */
+  .name-cloud-grid .chart {
+    width: 100%;
+    margin-top: 8px;
+  }
+  
+  /* Stack on small screens */
+  @media (max-width: 900px) {
+    .name-cloud-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  /* Single-card section for the heatmap */
+.heatmap-section {
+    max-width: 1280px;
+    margin: 40px auto 0 auto;
+  }
+  
+  .two-col-visual-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;   /* 2/3 + 1/3 */
+    gap: 40px;
+    align-items: start;
+    margin-top: 20px;
+}
+
+/* ---------------------------------------------------
+   Section bridge (text between big visual sections)
+   --------------------------------------------------- */
+   .section-bridge {
+    max-width: 1280px;
+    margin: 40px auto 0 auto;  /* matches spacing above/below sections */
+}
+
+h2, .section-heading {
+    font-size: 1.6rem;        /* choose your preferred size */
+    margin-bottom: 0.5rem; 
+    font-weight: 700;
+}
+
+.metadata-box {
+    background: #f7f7f7;
+    border: 1px solid #ddd;
+    padding: 24px 28px;
+    border-radius: 8px;
+    max-width: 900px;
+    margin: 40px auto;
+    font-size: 14.5px;
+}
+
+  
+
+  
